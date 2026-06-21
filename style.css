@@ -99,3 +99,7 @@ input[type="text"], select, input[type="number"] { width: 100%; padding: 12px; b
 .result-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border); font-size: 1.1rem;}
 .result-row:last-child { border-bottom: none; }
 .hidden { display: none !important; }
+/* Player List UI */
+.player-list-item { background: var(--bg-main); border: 1px solid var(--border); padding: 12px; margin-bottom: 8px; border-radius: 8px; font-weight: bold; display: flex; justify-content: space-between; }
+.player-list-item.me { border-color: var(--primary); color: var(--primary); }
+.mp-bar-row { display:flex; justify-content:space-between; font-size:0.9rem; color:var(--text-main); font-weight:600; margin-bottom: 4px; }
