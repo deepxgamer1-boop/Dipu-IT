@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SpeedMath ⚡ Dipu IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+
+    <div class="global-header">
+        <div class="logo">SpeedMath ⚡ <span>Dipu IT</span></div>
+        <div class="header-controls">
+            <button class="icon-btn" onclick="showHistory()" title="Progress History">📊</button>
+            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">☀️</button>
+        </div>
+    </div>
+
+    <div id="screen-1" class="container">
+        <h2>What do you want to do today?</h2>
+        <div class="card setup-scroll">
+            <div class="op-grid">
+                <label class="op-card"><input type="radio" name="op" value="+" checked><span>➕ Addition</span></label>
+                <label class="op-card"><input type="radio" name="op" value="-"><span>➖ Subtraction</span></label>
+                <label class="op-card"><input type="radio" name="op" value="*"><span>✖️ Multiplication</span></label>
+                <label class="op-card"><input type="radio" name="op" value="/"><span>➗ Division</span></label>
+                <label class="op-card" style="border-color: #f59e0b;"><input type="radio" name="op" value="bodmas"><span style="color:#f59e0b">🧮 BODMAS</span></label>
+                <label class="op-card"><input type="radio" name="op" value="table"><span>🔢 Tables</span></label>
+                <label class="op-card"><input type="radio" name="op" value="sq"><span>x² Squares</span></label>
+                <label class="op-card"><input type="radio" name="op" value="sqrt"><span>√x Sq Roots</span></label>
+                <label class="op-card"><input type="radio" name="op" value="cube"><span>x³ Cubes</span></label>
+                <label class="op-card"><input type="radio" name="op" value="cuberoot"><span>∛x Cube Roots</span></label>
+            </div>
+            <button class="btn-primary mt-20" onclick="goToScreen2()">Next ➡️</button>
+        </div>
+    </div>
+
+    <div id="screen-2" class="container hidden">
+        <div class="top-bar-simple">
+            <button class="exit-btn" onclick="showScreen('screen-1')">← Back</button>
+            <span style="font-weight: bold; color: var(--primary);">Settings</span>
+            <div style="width: 50px;"></div> 
+        </div>
+
+        <div class="card setup-scroll">
+            <div id="bodmas-config" class="hidden">
+                <div class="form-group">
+                    <label>Number Type</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="bodmas-type" value="integer" checked> Integers</label>
+                        <label class="radio-btn"><input type="radio" name="bodmas-type" value="fraction"> Fractions</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Include Operations</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="bodmas-ops" value="+" checked> ➕</label>
+                        <label><input type="checkbox" name="bodmas-ops" value="-" checked> ➖</label>
+                        <label><input type="checkbox" name="bodmas-ops" value="*" checked> ✖️</label>
+                        <label><input type="checkbox" name="bodmas-ops" value="/" checked> ➗</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Length of Question</label>
+                    <select id="bodmas-length">
+                        <option value="2">2 Ops</option>
+                        <option value="3" selected>3 Ops</option>
+                        <option value="4">4 Ops</option>
+                        <option value="5">5 Ops</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="special-config" class="hidden">
+                <div class="form-group">
+                    <label>Activity Mode</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="activity-mode" value="learn" checked> 📖 Learn</label>
+                        <label class="radio-btn"><input type="radio" name="activity-mode" value="practice"> ✍️ Practice</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Enter Numbers or Range</label>
+                    <input type="text" id="target-numbers" placeholder="e.g., 2, 5, 10-15" value="2-10">
+                </div>
+            </div>
+
+            <div id="standard-config">
+                <div class="form-group">
+                    <label>Difficulty Level</label>
+                    <select id="diff-select">
+                        <option value="easy">Easy</option>
+                        <option value="moderate" selected>Moderate</option>
+                        <option value="difficult">Difficult</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <div class="form-group flex-row" id="digits-config">
+                    <div class="flex-half">
+                        <label>1st Num Digits</label>
+                        <select id="digit1"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+                    </div>
+                    <div class="flex-half" id="digit2-container">
+                        <label>2nd Num Digits</label>
+                        <select id="digit2"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="practice-config">
+                <div class="form-group" id="input-method-container">
+                    <label>Input Method</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="input-mode" value="type" checked> Keyboard</label>
+                        <label class="radio-btn"><input type="radio" name="input-mode" value="mcq"> MCQ</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Questions</label>
+                    <input type="number" id="total-q" value="10" min="1" max="100">
+                </div>
+            </div>
+
+            <button class="btn-primary mt-20" onclick="startSession()" id="start-btn">Start Practice 🚀</button>
+        </div>
+    </div>
+
+    <div id="screen-learn" class="container hidden">
+        <div class="top-bar-simple">
+            <button class="exit-btn" onclick="showScreen('screen-1')">← Home</button>
+            <span style="font-weight: bold; color: var(--primary);">Learn Mode</span>
+            <div style="width: 50px;"></div>
+        </div>
+        <div class="card setup-scroll learn-area" id="learn-content"></div>
+    </div>
+
+    <div id="screen-game" class="container hidden">
+        <div class="top-bar">
+            <div class="stat-box">
+                <span class="stat-label">Ex</span>
+                <span class="stat-value" id="q-counter">0/10</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Timer</span>
+                <span class="stat-value text-blue" id="time-display">00:00</span>
+            </div>
+            <button class="exit-btn" onclick="showScreen('screen-1')">Exit</button>
+        </div>
+
+        <div class="arena-card">
+            <div class="equation-area">
+                <span id="equation-text">Loading...</span>
+                <div class="input-wrapper" id="typing-wrapper">
+                    <span id="answer-display"></span>
+                    <span class="cursor"></span>
+                </div>
+            </div>
+            <div id="fraction-hint" class="hint hidden text-center" style="margin-top:10px;">Format: num/den (e.g. 1/2)</div>
+            <div id="error-message" class="error-text hidden">Incorrect! Try again.</div>
+            
+            <div class="mcq-grid hidden" id="mcq-wrapper">
+                <button class="mcq-btn" onclick="checkMCQ(this, 0)" id="mcq-0">A</button>
+                <button class="mcq-btn" onclick="checkMCQ(this, 1)" id="mcq-1">B</button>
+                <button class="mcq-btn" onclick="checkMCQ(this, 2)" id="mcq-2">C</button>
+                <button class="mcq-btn" onclick="checkMCQ(this, 3)" id="mcq-3">D</button>
+            </div>
+        </div>
+
+        <div class="keyboard" id="custom-keyboard">
+            <button onclick="keyPress('1')">1</button>
+            <button onclick="keyPress('2')">2</button>
+            <button onclick="keyPress('3')">3</button>
+            <button onclick="keyPress('4')">4</button>
+            <button onclick="keyPress('5')">5</button>
+            <button onclick="keyPress('6')">6</button>
+            <button onclick="keyPress('7')">7</button>
+            <button onclick="keyPress('8')">8</button>
+            <button onclick="keyPress('9')">9</button>
+            <button onclick="keyPress('clear')" class="action-btn">C</button>
+            <button onclick="keyPress('0')">0</button>
+            <button onclick="keyPress('delete')" class="action-btn">⌫</button>
+            <button onclick="keyPress('-')" id="minus-key" class="hidden" style="grid-column: span 1;">-</button>
+            <button onclick="keyPress('/')" id="slash-key" class="hidden" style="grid-column: span 2; background-color: var(--bg-card); color:var(--primary)">/</button>
+        </div>
+    </div>
+
+    <div id="screen-result" class="container hidden">
+        <h2 style="color: var(--primary);">Session Complete 🎉</h2>
+        <div class="card result-card">
+            <div class="result-row"><span>Total Questions</span><strong id="res-total">10</strong></div>
+            <div class="result-row"><span>Time Taken</span><strong id="res-time" class="text-blue">00:00</strong></div>
+            <div class="result-row"><span>Average Speed</span><strong id="res-speed">0 sec/q</strong></div>
+            <button class="btn-primary mt-20" onclick="showScreen('screen-1')">Home Screen</button>
+            <button class="btn-secondary mt-20" onclick="showHistory()">View Progress 📊</button>
+        </div>
+    </div>
+
+    <div id="screen-history" class="container hidden">
+        <div class="top-bar-simple">
+            <button class="exit-btn" onclick="showScreen('screen-1')">← Home</button>
+            <span style="font-weight: bold; color: var(--primary);">Your Progress</span>
+            <div style="width: 50px;"></div>
+        </div>
+        <div class="card setup-scroll">
+            
+            <div class="form-group flex-row">
+                <div class="flex-half">
+                    <label>Operation</label>
+                    <select id="history-op-filter" onchange="renderHistory()">
+                        <option value="all">All</option>
+                        <option value="+">Addition (+)</option>
+                        <option value="-">Subtraction (-)</option>
+                        <option value="*">Multiplication (×)</option>
+                        <option value="/">Division (÷)</option>
+                        <option value="bodmas">BODMAS</option>
+                        <option value="table">Tables/Squares</option>
+                    </select>
+                </div>
+                <div class="flex-half">
+                    <label>Difficulty</label>
+                    <select id="history-diff-filter" onchange="renderHistory()">
+                        <option value="all">All</option>
+                        <option value="easy">Easy</option>
+                        <option value="moderate" selected>Moderate</option>
+                        <option value="difficult">Difficult</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3 style="text-align:center; font-size: 1rem; color: var(--text-muted);">Avg Speed Trend (Lower is better)</h3>
+            <div class="graph-container">
+                <svg id="trend-graph" width="100%" height="150"></svg>
+            </div>
+
+            <h3 style="text-align:center; font-size: 1rem; color: var(--primary); margin-top:20px;">🏆 Top 10 Fastest</h3>
+            <div id="leaderboard-list" class="leaderboard">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
